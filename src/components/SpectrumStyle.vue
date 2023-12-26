@@ -1,0 +1,61 @@
+<template>
+  <button 
+    @click="setClass('spectrum')" 
+    type="button">
+    {{name}}
+  </button>
+</template>
+
+<script>
+export default {
+  name: 'SpectrumStyle',
+  props: ['name', 'inputContent'],
+  methods: {
+    setClass: function(displayClass) {
+      this.$emit('setDisplay', displayClass);
+      this.$emit('setText', this.inputContent);
+    }
+  }
+}
+</script>
+
+<style>
+.display.spectrum {
+  text-align: center;
+  width: 100%;
+  font-size: 2rem;
+}
+.spectrum {
+  text-align: center;
+  color: rgba(0, 0, 0, 1);
+  animation: spectrum 1.5s normal;
+}
+@keyframes spectrum {
+  0% {
+    color: rgba(0, 0, 0, 0);
+    text-shadow: 
+    -20px 15px 0  rgba(138, 20, 255, 0), /*purple*/
+    30px 0 0  rgba(18, 209, 8, 0),       /*green*/
+    15px -20px 0 rgba(227, 142, 5, .1),  /*orange*/
+    0 -20px 0 rgba(9, 9, 222, 0),        /*blue*/
+    0 20px 0  rgba(255,255,0, .2),       /*yellow*/
+    -30px 0 0  rgba(227, 23, 23, 0);     /*red*/
+  }
+  80% {
+    color: rgba(0, 0, 0, 0);
+  }
+  90% {
+    color: rgba(0, 0, 0, 0.5);
+    text-shadow:
+    0 0 0  rgba(138, 20, 255, .5), /*purple*/
+    0 0 0  rgba(8,150,19, .5),     /*green*/
+    0 0 0 rgba(227, 142, 5, .5),   /*orange*/
+    0 0 0  rgba(0,0,255, .5),      /*blue*/
+    0 0 0  rgba(255,255,0, .75),   /*yellow*/
+    0 0 0  rgba(255,0,0, .75);     /*red*/
+  }
+  100% {
+    color: rgba(0, 0, 0, 1);
+  }
+}
+</style>
