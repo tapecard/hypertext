@@ -74,7 +74,7 @@
       </div>
   </div>
 
-  <LicenceText/>
+  <LicenseText/>
 </template>
 
 <script>
@@ -87,7 +87,7 @@ import SpectrumStyle from './components/SpectrumStyle.vue';
 import DescaleStyle from './components/DescaleStyle.vue';
 import PhaseStyle from './components/PhaseStyle.vue';
 import FocusStyle from './components/FocusStyle.vue';
-import LicenceText from './components/LicenceText.vue';
+import LicenseText from './components/LicenseText.vue';
 
 export default {
   name: 'App',
@@ -99,7 +99,7 @@ export default {
     DescaleStyle,
     PhaseStyle,
     FocusStyle,
-    LicenceText
+    LicenseText
   },
 
   data() { 
