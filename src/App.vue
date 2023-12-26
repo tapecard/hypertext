@@ -126,19 +126,6 @@ export default {
 </script>
 
 <style>
-#app {
-  font-family: Avenir;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-body {
-  margin: 0;
-  text-align: center;
-  background-color: lightsteelblue;
-  font-family: arial, helvetica;
-}
 H1 {
   margin: 8px auto;
 }
@@ -164,6 +151,7 @@ textarea {
   position: relative;
 }
 .display {
+  font-family: 'Helvetica Neue', sans-serif;
   background-color: #fefefe;
   margin: 0 auto;
   padding: 10px;
