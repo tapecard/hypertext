@@ -1,11 +1,11 @@
 const effects = [
   {
-    name:'Prompt', 
-    text:'Prompt is a "run once" effect. It recalls the old computer prompt effect with a block of color preceeding each letter as they appear sequentially. This works well at any font size with any number of words.<br>Requires Javascript.'
-  },
-  {
     name:'Decrypt', 
     text:'Decrypt is a "run once" effect. It scrambles the text into randome characters and rapidly changes them while revealing one letter at a time. best used on small single line word groups. Works well with a monospaced font.<br>Requires Javascript.'
+  },
+  {
+    name:'Prompt', 
+    text:'Prompt is a "run once" effect. It recalls the old computer prompt effect with a block of color preceeding each letter as they appear sequentially. This works well at any font size with any number of words.<br>Requires Javascript.'
   },
   {
     name:'Descale', 

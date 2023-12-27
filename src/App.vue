@@ -19,48 +19,15 @@
   ></textarea>
 
   <div class="trigger-btns">
-    <DecryptStyle 
-      :name="effects[1].name" 
-      :inputContent="inputContent" 
-      @setDisplay="this.setClass($event)"
-      @setText="this.setText($event)"
-    />
-    <PromptStyle 
-      :name="effects[0].name" 
-      :inputContent="inputContent" 
-      @setDisplay="this.setClass($event)"
-      @setText="this.setText($event)"
-    />
-    <SpeedStyle 
-      :name="effects[4].name" 
-      :inputContent="inputContent" 
-      @setDisplay="this.setClass($event)" 
-      @setText="this.setText($event)"
-    />
-    <SpectrumStyle 
-      :name="effects[3].name" 
-      :inputContent="inputContent"
-      @setDisplay="this.setClass($event)" 
-      @setText="this.setText($event)"
-    />
-    <DescaleStyle 
-      :name="effects[2].name" 
-      :inputContent="inputContent" 
-      @setDisplay="this.setClass($event)" 
-      @setText="this.setText($event)"
-    />
-    <PhaseStyle
-      :name="effects[5].name" 
-      :inputContent="inputContent" 
-      @setDisplay="this.setClass($event)" 
-      @setText="this.setText($event)"
-    />
-    <FocusStyle
-      :name="effects[6].name" 
-      :inputContent="inputContent" 
-      @setDisplay="this.setClass($event)" 
-      @setText="this.setText($event)"
-    />
+      <component 
+        v-for="(elem, i) in effects" 
+        v-bind:key="i" 
+        :is="effects[i].name + 'Style'" 
+        :name="effects[i].name" 
+        :inputContent="inputContent" 
+        @setDisplay="this.setClass($event)" 
+        @setText="this.setText($event)" 
+      />
   </div>
   
   <div class="suggestions">
