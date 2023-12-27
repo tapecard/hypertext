@@ -57,13 +57,15 @@
   margin: 0;
 }
 #app {
-  font-family: Avenir;
+  font-family: Avenir, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
-}
-body {
-  
+  max-width: 1280px;
+  margin: 0 auto;
+  font-weight: normal;
+  padding: 8px;
+  text-align: center;
 }
 body {
   min-height: 100vh;
@@ -74,21 +76,11 @@ body {
     background-color 0.5s;
   line-height: 1.2;
   text-align: center;
-  background-color: lightsteelblue;
-  font-family:
-    Inter,
-    -apple-system,
-    BlinkMacSystemFont,
-    'Segoe UI',
-    Roboto,
-    Oxygen,
-    Ubuntu,
-    Cantarell,
-    'Fira Sans',
-    'Droid Sans';
+  background-color: #b0c4de;
   font-size: 15px;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   margin: 0;
+  padding: 0;
 }

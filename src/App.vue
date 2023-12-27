@@ -1,9 +1,9 @@
 <template>
   <h1>{{ header }}</h1>
 
-  <div class="descriptionspace">
-    This collection of animated text-based effects can be used in different ways, some can run continuously and some are intended to sit in a waiting state until a triggering event like a page scroll or hover. Some require Javascript and some are CSS only.
-  </div>
+  <h2 class="description">
+    This collection of css and javascript animated text effects developed as Vue.js components and formatted as a playable demonstration site. Able to be used in different ways, some can run continuously and some are intended to wait until a triggering event like a page scroll or click. Some require Javascript, and some are CSS only.
+  </h2>
 
   <div class="topframe">
     <div class="display" 
@@ -11,7 +11,7 @@
         v-html="inputContentStorage" 
     ></div>
   </div>
-
+  <div class="topframe-spacer"></div>
   <textarea 
     v-model="inputContent" 
     type="input" 
@@ -38,14 +38,12 @@
       @setText="this.setText($event)"
     />
     <SpectrumStyle 
-      :reset="reset"
       :name="effects[3].name" 
       :inputContent="inputContent"
       @setDisplay="this.setClass($event)" 
       @setText="this.setText($event)"
     />
     <DescaleStyle 
-      :reset="reset"
       :name="effects[2].name" 
       :inputContent="inputContent" 
       @setDisplay="this.setClass($event)" 
@@ -63,6 +61,12 @@
       @setDisplay="this.setClass($event)" 
       @setText="this.setText($event)"
     />
+  </div>
+  
+  <div class="suggestions">
+    Effects also accept inline HTML, try adding some formatting:
+    <button
+    @click="this.inputContent='Your <b>Cool</b><br>Text Content!'">Pre-formatted Text</button>
   </div>
 
   <div class="showspace">
@@ -101,15 +105,13 @@ export default {
     FocusStyle,
     LicenseText
   },
-
   data() { 
     return {
       effects,
       header: 'Welcome to the HyperText Party!',
       displayClass: '',
       inputContent: 'Your Cool Text Content!',
-      inputContentStorage: '',
-      reset: false
+      inputContentStorage: ''
     }
   },
   methods: {
@@ -121,13 +123,12 @@ export default {
     }
   }
 }
-
-
 </script>
 
 <style>
 H1 {
   margin: 8px auto;
+  font-size: 2rem;
 }
 button {
   font-size: 1rem;
@@ -140,24 +141,81 @@ textarea {
   padding: 10px;
   line-height: 1;
   border-radius: 10px;
-  margin-top: 10px;
+  margin-top: 0;
   border: none;
+}
+.description {
+  border-top-right-radius: 12px;
+  border-top-left-radius: 12px;
+  padding: 16px;
+  color: #000;
+  text-align: left;
+  display: inline-block;
+  box-sizing: border-box;
+  width: 87%;
+  font-weight: normal;
+  font-size: 1rem;
+  background-color: #d0e0f5;
+  width: 84%;
+}
+.topframe-spacer {
+  background-color: #d0e0f5;
+  width: 84%;
+  height: 10px;
+  position: relative;
+  display: block;
+  margin: 0 auto;
 }
 .topframe {
   font-family: Helvetica, Arial, sans-serif;
   background-color: #fff;
-  width: 100%;
+  width: 90%;
   overflow: hidden;
   position: relative;
+  border-radius: 12px;
+  margin: 0 auto;
 }
 .display {
-  font-family: 'Helvetica Neue', sans-serif;
   background-color: #fefefe;
   margin: 0 auto;
   padding: 10px;
   width: 600px;
   height: 200px;
   overflow: hidden;
+}
+.trigger-btns {
+  background-color: #d0e0f5;
+  width: 84%;
+  text-align: center;
+  margin: 0 auto;
+  padding-top:5px;
+}
+.suggestions {
+  margin: 0 auto;
+  padding: 5px;
+  width: 84%;
+  background-color: #d0e0f5;
+  border-bottom-left-radius: 16px;
+  border-bottom-right-radius: 16px;
+}
+.showspace {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  width: 100%;
+  max-width: 1440px;
+  position: relative;
+}
+.showspace-tile {
+  border-radius: 12px;
+  padding: 10px;
+  margin: 15px;
+  width: 40%;
+  box-sizing: border-box;
+  display: inline-block;
+  text-align: left;
+  color: #000;
+  background-color: rgba(161, 138, 184, .5);
 }
 .trigger-ready {
   border-radius: 4px;
@@ -180,39 +238,5 @@ textarea {
     box-shadow: 0 0 1px #fff;
     border-color: #c1fab4;
   }
-}
-a {
-  color: #42b983;
-}
-.descriptionspace {
-  border-top-right-radius: 12px;
-  border-top-left-radius: 12px;
-  padding: 10px;
-  color: #000;
-  text-align: left;
-  display: inline-block;
-  box-sizing: border-box;
-  max-width: 1440px;
-  margin: 0 auto;
-  width: 87%;
-}
-.showspace {
-  display: flex;
-  flex-flow: row wrap;
-  justify-content: center;
-  width: 100%;
-  max-width: 1440px;
-  position: relative;
-}
-.showspace-tile {
-  border-radius: 12px;
-  padding: 10px;
-  margin: 15px;
-  width: 40%;
-  box-sizing: border-box;
-  display: inline-block;
-  text-align: left;
-  color: #000;
-  background-color: rgba(161, 138, 184, .5);
 }
 </style>
