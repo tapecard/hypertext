@@ -1,6 +1,8 @@
 <template>
-  <button @click="setClass('phase')" type="button">
-    {{name}}
+  <button 
+    @click="setClass('phase')" 
+    type="button">
+    {{ name }}
   </button>
 </template>
 
@@ -9,8 +11,8 @@ export default {
   name: 'PhaseStyle',
   props: ['name', 'inputContent'],
   methods: {
-    setClass: function(displayClass) {
-      this.$emit('setDisplay', displayClass);
+    setClass: function(nuDisplayClass) {
+      this.$emit('setDisplay', nuDisplayClass);
       this.$emit('setText', this.inputContent);
     }
   }

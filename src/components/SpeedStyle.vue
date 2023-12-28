@@ -1,6 +1,8 @@
 <template>
-  <button @click="setClass('speed')" type="button">
-    {{name}}
+  <button 
+    @click="setClass('speed')" 
+    type="button">
+    {{ name }}
   </button>
 </template>
 
@@ -9,10 +11,9 @@ export default {
   name: 'SpeedStyle',
   props: ['name', 'inputContent'],
   methods: {
-    setClass: function(displayClass) {
-      this.$emit('setDisplay', displayClass);
+    setClass: function(nuDisplayClass) {
+      this.$emit('setDisplay', nuDisplayClass);
       this.$emit('setText', this.inputContent);
-      this.$emit(false, this.reset);
     }
   }
 }

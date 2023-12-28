@@ -7,27 +7,28 @@
 
   <div class="topframe">
     <div class="display" 
-        :class="displayClass"
-        v-html="inputContentStorage" 
-    ></div>
+      :class="displayClass"
+      v-html="inputContentStorage">
+    </div>
   </div>
   <div class="topframe-spacer"></div>
   <textarea 
     v-model="inputContent" 
     type="input" 
-    class="input"
-  ></textarea>
+    class="input">
+  </textarea>
 
   <div class="trigger-btns">
-      <component 
-        v-for="(elem, i) in effects" 
-        v-bind:key="i" 
-        :is="effects[i].name + 'Style'" 
-        :name="effects[i].name" 
-        :inputContent="inputContent" 
-        @setDisplay="this.setClass($event)" 
-        @setText="this.setText($event)" 
-      />
+    <component 
+      v-for="(elem, i) in effects" 
+      v-bind:key="i" 
+      :is="effects[i].name + 'Style'" 
+      :name="effects[i].name" 
+      :inputContent="inputContent" 
+      :displayClass="this.displayClass"
+      @setDisplay="this.setClass($event)" 
+      @setText="this.setText($event)" 
+    />
   </div>
   
   <div class="suggestions">
@@ -38,10 +39,9 @@
 
   <div class="showspace">
       <div class="showspace-tile" 
-          v-for="(effect, i) in effects" 
-          v-bind:key="i" 
-          v-html="effects[i].text"
-          >
+        v-for="(effect, i) in effects" 
+        v-bind:key="i" 
+        v-html="effects[i].text">
       </div>
   </div>
 
@@ -183,6 +183,11 @@ textarea {
   text-align: left;
   color: #000;
   background-color: rgba(161, 138, 184, .5);
+}
+.trigger-reset {
+  background-color: peachpuff;
+  border:1px solid peachpuff;
+  border-radius: 6px;
 }
 .trigger-ready {
   border-radius: 4px;

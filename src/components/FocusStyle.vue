@@ -1,17 +1,45 @@
 <template>
-  <button @click="setClass('focus')" type="button">
-    {{name}}
+  <button 
+    :class="!resetMe ? '' : 'trigger-reset'"
+    @click="setClass('focus')" 
+    type="button">
+    {{ !resetMe ? name : 'Reset Effect' }}
   </button>
 </template>
 
 <script>
 export default {
   name: 'FocusStyle',
-  props: ['name', 'inputContent'],
+  props: ['name', 'inputContent', 'displayClass'],
+  data() {
+    return {
+      resetMe: false
+    }
+  },
+  watch: { 
+    displayClass: function(resetValue) { // watch it
+      if (resetValue != 'focus') {
+        this.resetButton();
+      }
+    }
+  },
   methods: {
-    setClass: function(displayClass) {
-      this.$emit('setDisplay', displayClass);
-      this.$emit('setText', this.inputContent);
+    setClass: function(nuDisplayClass) {
+      if (this.resetMe == true) {
+        this.resetEffect();
+      } else {
+        this.$emit('setDisplay', nuDisplayClass);
+        this.$emit('setText', this.inputContent);
+        this.resetMe = true;
+      }
+    },
+    resetEffect: function() {
+      this.resetMe = false;
+      this.$emit('setText', '');
+      this.$emit('setDisplay', '');
+    },
+    resetButton: function() {
+      this.resetMe = false;
     }
   }
 }

@@ -4,28 +4,39 @@
       @click="setClass('decrypt')"
       type="button"
     >
-      {{ready==false ? name : 'Trigger Event'}}
+      {{ ready==false ? name : 'Trigger Event' }}
     </button>
 </template>
 
 <script>
 export default {
   name: 'SpeedStyle',
-  props: ['name','inputContent'],
+  props: ['name', 'inputContent', 'displayClass'],
   data() {
     return {
       ready: false,
       chars: "ABCDEFGHIJKLMNPQRSTUVWXYZ123456789•üπö‡#%&$*?¥∆ß?√∂Ç◊Ø£€¢!"
     }
   },
+  watch: { 
+    displayClass: function(resetValue) { // watch it
+      if (resetValue != 'decrypt') {
+        this.resetButton();
+      }
+    }
+  },
   methods: {
-    setClass: function(displayClass) {
-        this.$emit('setDisplay', displayClass);
-        this.decrypt(this.inputContent);
+    setClass: function(nuDisplayClass) {
+      this.$emit('setDisplay', nuDisplayClass);
+      this.decrypt(this.inputContent);
+    },
+    resetButton: function() {
+      this.ready = false;
     },
     decrypt: function(inputContent) {
       let inputValueArray = inputContent.split('');
-      let displayArray = [];// sets up the array of tags, locations, and lengths
+  // sets up the array of tags, their locations, and lengths:
+      let displayArray = [];
       let arrSize = inputValueArray.length,
           tag = false,
           tagArr = [],
@@ -76,7 +87,6 @@ export default {
           xtagArr = [...tagArr];
           return nuArray.join('');
       }
-      
       if (this.ready == false) {
           this.$emit('setText', fixtags(displayArray));
           this.ready = true;

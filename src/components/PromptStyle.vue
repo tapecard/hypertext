@@ -11,16 +11,26 @@
 <script>
 export default {
   name: 'PromptStyle',
-  props: ['name','inputContent'],
+  props: ['name', 'inputContent', 'displayClass'],
   data() {
     return {
       ready: false
     }
   },
+  watch: { 
+    displayClass: function(resetValue) { // watch it
+      if (resetValue != 'prompt-active') {
+        this.resetButton();
+      }
+    }
+  },
   methods: {
-    setClass: function(displayClass) {
-      this.$emit('setDisplay', displayClass);
+    setClass: function(nuDisplayClass) {
+      this.$emit('setDisplay', nuDisplayClass);
       this.prompt(this.inputContent);
+    },
+    resetButton: function() {
+      this.ready = false;
     },
     prompt: function(inputContent) {
       let result = '';

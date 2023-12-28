@@ -1,19 +1,45 @@
 <template>
   <button 
+    :class="!resetMe ? '' : 'trigger-reset'"
     @click="setClass('spectrum')" 
     type="button">
-    {{name}}
+    {{ !resetMe ? name : 'Reset Effect' }}
   </button>
 </template>
 
 <script>
 export default {
   name: 'SpectrumStyle',
-  props: ['name', 'inputContent'],
+  props: ['name', 'inputContent', 'displayClass'],
+  data() {
+    return {
+      resetMe: false
+    }
+  },
+  watch: { 
+    displayClass: function(resetValue) { // watch it
+      if (resetValue != 'spectrum') {
+        this.resetButton();
+      }
+    }
+  },
   methods: {
-    setClass: function(displayClass) {
-      this.$emit('setDisplay', displayClass);
-      this.$emit('setText', this.inputContent);
+    setClass: function(nuDisplayClass) {
+      if (this.resetMe == true) {
+        this.resetEffect();
+      } else {
+        this.$emit('setDisplay', nuDisplayClass);
+        this.$emit('setText', this.inputContent);
+        this.resetMe = true;
+      }
+    },
+    resetEffect: function() {
+      this.$emit('setText', '');
+      this.$emit('setDisplay', '');
+      this.resetMe = false;
+    },
+    resetButton: function() {
+      this.resetMe = false;
     }
   }
 }
