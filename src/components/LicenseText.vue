@@ -1,5 +1,5 @@
 <template>
-  <div class="licence">
+  <div class="license">
     <p class="copyright">
       &copy;{{this.addDate()}} Michael P. Cohen.
     </p>
@@ -14,7 +14,7 @@
 
 <script>
 export default {
-  name: 'LicenceText',
+  name: 'LicenseText',
   methods: {
     addDate() {
       return new Date().getFullYear().toString();
@@ -24,7 +24,7 @@ export default {
 </script>
 
 <style scoped>
-.licence {
+.license {
   font-size: .5rem;
   max-width: 1440px;
   width: 87%;

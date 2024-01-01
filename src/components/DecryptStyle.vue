@@ -19,7 +19,7 @@ export default {
     }
   },
   watch: { 
-    displayClass: function(resetValue) { // watch it
+    displayClass: function(resetValue) {
       if (resetValue != 'decrypt') {
         this.resetButton();
       }
@@ -66,7 +66,7 @@ export default {
           displayArray.push(this.chars[Math.floor(Math.random() * this.chars.length)]);
       }
 
-  // uses tag array data to replace chars with tags: 
+   // uses tag array data to replace chars with tags: 
       function fixtags(displayArray) {
           let nuArray = [];
           for (let e=0; e < displayArray.length+1; e++) {
@@ -93,7 +93,7 @@ export default {
           return;
       }
 
-  // replaces randoms with originals one char at a time sends to fixtags to add tags back for display at end, switched each character 2x before moving on.
+   // replaces randoms with originals one char at a time sends to fixtags to add tags back for display at end, switches each character 2x before moving on.
       let ticker = -1,
           resultArray = [],
           ztagArr = [...tagArr];

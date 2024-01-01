@@ -17,7 +17,7 @@ export default {
     }
   },
   watch: { 
-    displayClass: function(resetValue) { // watch it
+    displayClass: function(resetValue) {
       if (resetValue != 'descale') {
         this.resetButton();
       }

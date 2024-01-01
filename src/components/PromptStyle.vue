@@ -18,7 +18,7 @@ export default {
     }
   },
   watch: { 
-    displayClass: function(resetValue) { // watch it
+    displayClass: function(resetValue) {
       if (resetValue != 'prompt-active') {
         this.resetButton();
       }
@@ -77,9 +77,8 @@ export default {
                 if (xtagArr.length && txNum == xtagArr[0][0]) {
                     var currentTag = xtagArr[0][1];
                     txNum += xtagArr[0][2];
+                    result = workText.slice(0,txNum-1).replace(/_/g, ' ')
                     xtagArr.shift();
-                    result = workText.slice(0,txNum).replace(/_/g, ' ') + currentTag 
-                    this.$emit('setText', result);
                 } else {
                     txNum++;
                     result = workText.slice(0,txNum-1).replace(/_/g, ' ') + '<span class="prompt">' + workText.slice(txNum-1,txNum) + '</span>';

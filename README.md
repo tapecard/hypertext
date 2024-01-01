@@ -1,5 +1,5 @@
-# Welcome to the Hypertext Party!
-Hypertext Party is a collection of css and javascript animated text effects developed as Vue.js components and formatted as a playable demonstration site. Able to be used in different ways, some can run continuously and some are intended to wait until a triggering event like a page scroll or click. Some require Javascript, and some are CSS only.
+# Welcome to the HyperText Party!
+HyperText Party is a collection of animated css and javascript text effects developed as Vue.js components and formatted as a playable demonstration site. Able to be used in different ways, some can run continuously and some are intended to wait until a triggering event like a page scroll or click, some require Javascript, and some are CSS only.
 
 ## Recommended IDE Setup
 
