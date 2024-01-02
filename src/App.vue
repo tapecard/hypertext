@@ -58,6 +58,8 @@ import SpectrumStyle from './components/SpectrumStyle.vue';
 import DescaleStyle from './components/DescaleStyle.vue';
 import PhaseStyle from './components/PhaseStyle.vue';
 import FocusStyle from './components/FocusStyle.vue';
+import RansomStyle from './components/RansomStyle.vue';
+
 import LicenseText from './components/LicenseText.vue';
 
 export default {
@@ -70,6 +72,7 @@ export default {
     DescaleStyle,
     PhaseStyle,
     FocusStyle,
+    RansomStyle,
     LicenseText
   },
   data() { 
