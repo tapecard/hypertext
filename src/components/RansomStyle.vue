@@ -1,60 +1,73 @@
 <template>
   <button 
-    :class="!resetMe ? '' : 'trigger-reset'"
     @click="setClass('ransom')" 
     type="button">
-    {{ !resetMe ? name : 'Reset Effect' }}
+    {{ name + ' Note' }}
   </button>
 </template>
 
 <script>
 export default {
   name: 'ransomStyle',
-  props: ['name', 'inputContent', 'displayClass'],
+  props: ['name', 'inputContent'],
   data() {
     return {
-      resetMe: false,
       styles:'abcdefghijklmnopqrstuvwxyz'
-    }
-  },
-  watch: { 
-    displayClass: function(resetValue) {
-      if (resetValue != 'ransom') {
-        this.resetButton();
-      }
     }
   },
   methods: {
     setClass: function(nuDisplayClass) {
-      if (this.resetMe == true) {
-        this.resetEffect();
-      } else {
-        this.$emit('setDisplay', nuDisplayClass);
-        this.ransom(this.inputContent, this.styles);
-        this.resetMe = true;
-      }
+      this.$emit('setDisplay', nuDisplayClass);
+      this.ransom(this.inputContent, this.styles);
     },
     ransom: function(inputContent, styles) {
-      let inputValueArray = inputContent.split('');
-      inputValueArray.forEach(function(item, index, inputValueArray) {
-        let styleClass = styles[Math.floor(Math.random() * styles.length)];
-        if (item === ' ') {
-          inputValueArray[index] = '<span class="xx">' + item + '</span>';
-        } else {
-          inputValueArray[index] = '<span class="' + styleClass + '">' + item + '</span>';
+    // creates HTML tag helper array: [index,tag,length]
+      let helperTagArr = [],
+          tmpTagArr = [],
+          tagContent = '';
+      for (let i=0; i <= inputContent.length-1; i++) {
+        if (inputContent[i] === '<') {
+          tmpTagArr.push(i);
         }
-        
-      });
-      console.log(inputValueArray);
-      this.$emit('setText', inputValueArray.toString().replace(/,/g, ''));
-    },
-    resetEffect: function() {
-      this.resetMe = false;
-      this.$emit('setText', '');
-      this.$emit('setDisplay', '');
-    },
-    resetButton: function() {
-      this.resetMe = false;
+        if (tmpTagArr.length) {
+          if (inputContent[i] !== '>') {
+            tagContent += inputContent[i];
+          } else {
+            tmpTagArr.push(tagContent + '>', tagContent.length+1);
+            helperTagArr.push(tmpTagArr);
+            tmpTagArr = [];
+            tagContent = '';
+          }
+        }
+      }
+    // recombines tags for output:
+      let inputValueArray = inputContent.split(''),
+          outputArray = [],
+          currentTag = 0;
+      for (let i=0; i <= inputContent.length; i++) {
+        if (helperTagArr.length && helperTagArr[currentTag] != undefined &&  i === helperTagArr[currentTag][0]) {
+          updateStuff();
+          recursiveTagCheck();
+          function recursiveTagCheck() {
+            if (inputContent[i] === '<') {
+              updateStuff();
+              recursiveTagCheck();
+            }
+          }
+          function updateStuff() {
+            outputArray.push(helperTagArr[currentTag][1]);
+            i += helperTagArr[currentTag][2];
+            currentTag++;
+          }
+        }
+        if (inputValueArray[i] === ' ') {
+          outputArray.push('<span class="xx">' + inputValueArray[i] + '</span>');
+        } else if (inputValueArray[i] != undefined) {
+          let styleClass = styles[Math.floor(Math.random() * styles.length)];
+          outputArray.push('<span class="' + styleClass + '">' + inputValueArray[i] + '</span>');
+        }
+      }
+      this.$emit('setText', outputArray.toString().replace(/,/g, ''));
     }
   }
 }
@@ -87,7 +100,7 @@ export default {
 }
 .ransom .a {
   font-family: times, times new roman, serif;
-  background-color: #d1d1d1;
+  background-color: #ededed;
   color: #00f;
   font-size: 1.3em;
   text-transform: uppercase;
@@ -110,7 +123,7 @@ export default {
   border: 1px solid #d1d1d1;
   background-color: #fefefe;
   font-size: 1.2em;
-  padding: 2px .01em;
+  padding: 1px .01em;
   line-height: .8;
   vertical-align: middle;
   transform: rotate(-4deg);
@@ -118,17 +131,17 @@ export default {
 .ransom .d {
   font-family: Courier;
   font-style: normal;
-  font-weight: lighter;
+  font-weight: bold;
   color: #000;
   background-color: #f00;
   font-size: 1.1em;
   text-transform: uppercase;
-  padding: 0 .15em 0 0 !important;
+  padding: 0 .05em 0 0 !important;
   transform: rotate(4deg);
 }
 .ransom .e {
   font-family: Arial, helvetica, sans-serif;
-  background: linear-gradient(0deg, rgba(131,58,180,.75) 0%, rgba(253,29,29,.75) 50%, rgba(252,176,69,.75) 100%);
+  background: linear-gradient(0deg, rgba(29, 30, 110,.75) 0%, rgba(253,29,29,.75) 60%, rgba(252,176,69,.75) 100%);
   color: #fff;
   font-weight: bold;
   font-size: 1.1em;
@@ -204,7 +217,7 @@ export default {
   text-transform: lowercase;
   color: transparent;
   background-clip: text;
-  background-image: linear-gradient(180deg, rgba(197,116,252,1) 32%, rgba(25,0,0,1) 74%);
+  background-image: linear-gradient(180deg, rgba(197,116,252,1) 0%, rgba(25,0,0,1) 100%);
 }
 .ransom .l {
   font-family: Garamond, serif;
@@ -213,15 +226,14 @@ export default {
   background-color: #555;
   color: #afc9fa;
   padding: .03em;
-  line-height: .75;
+  line-height: .85;
   letter-spacing: 0.02em;
 }
 .ransom .m {
   font-family: Verdana, sans-serif;
   font-style: oblique;
   font-size: 1em;
-  font-weight: bold;
-  background-color: #c7ffc4;
+  background-color: #f0faf0;
   padding: 0 0 .3em 0;
   line-height: .7;
   color: #11ad09;
@@ -229,12 +241,12 @@ export default {
 .ransom .n {
   font-family: Trebuchet, sans-serif;
   font-weight: lighter;
-  background-color: #525705;
+  background-color: #aaa;
   color:#fff;
   text-transform: lowercase;
   font-size: 1.1em;
   padding: 0 .08em 0 .03em;
-  transform: rotate(-8deg) skew(-13deg);
+  transform: rotate(-8deg) skew(-10deg);
   letter-spacing: 0.01em;
 }
 .ransom .o {
@@ -250,7 +262,7 @@ export default {
 .ransom .p {
   font-family: Courier;
   font-style: normal;
-  font-weight: bold;
+  font-weight: lighter;
   color: #000;
   background-color: #efefef;
   font-size: 1.2em;
@@ -285,37 +297,90 @@ export default {
   padding: 0 .16em .04em 0;
   font-size: 1em;
 }
-/*.ransom span:nth-child(1) {
-  text-transform: uppercase;
-  transform: rotate(2deg);
-  font-size: 1.4em;
-}*/
-/*.ransom span:nth-child(3) {
+.ransom .s {
+  font-family: Courier;
+  font-style: normal;
+  font-weight: normal;
+  color: #efefef;
+  text-shadow: .02em .02em 0 #f00, -.02em .02em 0 #f00, .02em -.02em 0 #f00, -.02em -.02em 0 #f00;
+  background-color: #fefefe;
   font-size: 1.2em;
+  margin-right: -.01em;
+  text-transform:lowercase;
+  padding: 0 .05em 0 0 !important;
+  transform: rotate(-4deg);
+}
+.ransom .t {
+  font-family: Verdana, sans-serif;
   font-style: italic;
-  padding: 0 .12em 0 0;
-  transform: rotate(1deg);
-}*/
-
-/*@keyframes ransom {
-  10% {
-    color: transparent;
-    font-size: 620px;
-    word-spacing: 0;
-    line-height: 0;
-    word-spacing: 0;
-  }
-  11% {
-    color: #000;
-  }
-  50% {
-  line-height: .3;
-  }
-  100% {
-    font-size: 16px;
-    letter-spacing: 1px;
-    line-height: 1;
-    word-spacing: 1px;
-  }
-}*/
+  font-size: 1.2em;
+  color: #029fb0;
+  vertical-align: middle;
+  background-color: #ededed;
+  padding: 0 .01em .04em 0;
+}
+.ransom .u {
+  font-family: Trebuchet, sans-serif;
+  font-weight: normal;
+  background-color: #000;
+  color:#ebf55f;
+  font-size: 0.9em;
+  padding: 0 .08em 0 .03em;
+  transform: rotate(2deg);
+  letter-spacing: 0.01em;
+}
+.ransom .v {
+  font-family: Helvetica, Arial, sans-serif;
+  font-weight: normal;
+  color: #888;
+  border: 1px solid #d1d1d1;
+  background-color: #fefefe;
+  line-height: 1;
+  font-size: 1.1em;
+  transform: skew(-2deg);
+}
+.ransom .w {
+  font-family: times new roman, times, serif;
+  font-style: normal;
+  color: #000;
+  background-color: #fcffd9;
+  font-size: .9em;
+  padding: .2em .01em;
+  margin: 0 .02em;
+  line-height: .8;
+  vertical-align: middle;
+  transform: rotate(2deg);
+}
+.ransom .x {
+  font-family: Trebuchet, sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  color: #000;
+  background-color: #fcffd9;
+  font-size: .9em;
+  padding: .2em .01em;
+  margin: 0 .02em;
+  line-height: .9;
+  vertical-align: middle;
+  transform: rotate(-1deg);
+}
+.ransom .y {
+  font-family: Garamond, serif;
+  font-style: normal;
+  font-weight: normal;
+  color: #000;
+  font-size: .9em;
+  padding: .2em .01em;
+  margin: 0 .02em;
+  line-height: .9;
+  vertical-align: middle;
+  transform: rotate(2deg);
+}
+.ransom .z {
+  font-family: Verdana, sans-serif;
+  font-style: normal;
+  color: #7d0c1a;
+  font-size: 1em;
+  background-color: #f2edee;
+}
 </style>

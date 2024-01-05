@@ -29,7 +29,7 @@ const effects = [
   },
   {
     name:'Ransom', 
-    text:'Ransom is a "run once" effect. It simulates the classic ransom note look of cut and pasted text from print sources. The effect is randomized. Individual fonts re in ems so the overall font size is controlled by the parent element.'
+    text:'Ransom is a "run once" effect. It simulates the classic ransom note look of cut and pasted text from print sources. The effect is randomized. Individual fonts are in ems so the overall font size is controlled by the parent element.'
   }
 ];
 export default effects;
