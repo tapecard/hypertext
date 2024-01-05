@@ -40,53 +40,62 @@ export default {
         this.ready = true;
         return;
       }
-
+    // creates HTML tag helper array: [index,tag,length]
       let workText = inputContent.replace(/ /g, '_');
       function getTagArrays(workText) {
-      let arrSize = workText.length,
-        tag = false,
-        tagArr = [],
-        tmptagArr = [],
-        tagcontent = '';
-        for (let i=0; i <= arrSize-1; i++) {
+        let helperTagArr = [],
+            tmpTagArr = [],
+            tagContent = '';
+        for (let i=0; i <= workText.length-1; i++) {
           if (workText[i] == '<') {
-            tag = true;
-            tmptagArr.push(i);
+            tmpTagArr.push(i);
           }
-          if (tag == true) {
-              if (workText[i] !== '>') {
-                tagcontent += workText[i];
-              } else {
-                tmptagArr.push(tagcontent.replace(/ /g, '_') + '>', tagcontent.length+1);
-                tagArr.push(tmptagArr);
-                tag = false;
-                tmptagArr = [];
-                tagcontent = '';
-              }
-           }
+          if (tmpTagArr.length > 0) {
+            if (workText[i] !== '>') {
+              tagContent += workText[i];
+            } else {
+              tmpTagArr.push(tagContent.replace(/ /g, '_') + '>', tagContent.length+1);
+              helperTagArr.push(tmpTagArr);
+              tmpTagArr = [];
+              tagContent = '';
+            }
+          }
         }
-        return tagArr;
+        return helperTagArr;
       }
 
-      let txNum = 0,
+      let i = 0,
           ticker = 0,
-          xtagArr = getTagArrays(workText.split('')),
+          currentTag = 0,
+          helperTagArr = getTagArrays(workText.split('')),
           txtTimer = setInterval(() => {
-            ticker > this.inputContent.length+1 ? clearInterval(txtTimer) : ticker++;
-            if (txNum <= workText.length+1) {
-                if (xtagArr.length && txNum == xtagArr[0][0]) {
-                    var currentTag = xtagArr[0][1];
-                    txNum += xtagArr[0][2];
-                    result = workText.slice(0,txNum-1).replace(/_/g, ' ')
-                    xtagArr.shift();
-                } else {
-                    txNum++;
-                    result = workText.slice(0,txNum-1).replace(/_/g, ' ') + '<span class="prompt">' + workText.slice(txNum-1,txNum) + '</span>';
-                    this.$emit('setText', result);
+            ticker > inputContent.length+1 ? clearInterval(txtTimer) : ticker++;
+            if (i <= workText.length+1) {
+              if (helperTagArr[currentTag] != undefined && helperTagArr.length && i == helperTagArr[currentTag][0]) {
+                updateStuff();
+                function recursiveTagCheck() {
+                  if (workText[i] === '<') {
+                    result = getTagResult();
+                  }
                 }
-            } else {
-                result = result.slice(0,txNum-2) + '<span class="ready-prompt">_</span>';
+                function updateStuff() {
+                  result = getTagResult();
+                  i += helperTagArr[currentTag][2];
+                  currentTag++;
+                  result = getTagResult();
+                  recursiveTagCheck();
+                }
+                function getTagResult() {
+                  return workText.slice(0,i).replace(/_/g, ' ');
+                }
+              } else {
+                i++;
+                result = workText.slice(0,i-1).replace(/_/g, ' ') + '<span class="prompt">' + workText.slice(i-1,i) + '</span>';
                 this.$emit('setText', result);
+              }
+            } else {
+              result = result.slice(0,i-2) + '<span class="ready-prompt">_</span>';
+              this.$emit('setText', result);
             }
           }, 70);
         this.ready = false;
