@@ -40,7 +40,7 @@ export default {
   content: '';
   transform: skewX(-22deg);
   border-top: 2px dashed rgba(255, 255, 255, 1);
-  bottom: 2px dashed rgba(255, 255, 255, 1);
+  border-bottom: 2px dashed rgba(255, 255, 255, 1);
   width: 100%;
   height: 5px;
   left: -50%;

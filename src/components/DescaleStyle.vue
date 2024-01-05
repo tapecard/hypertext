@@ -56,7 +56,7 @@ export default {
   word-spacing: 0;
   text-align: center;
   padding-top: 30px;
-  animation: scale .75s forwards;
+  animation: scale .5s forwards;
 }
 @keyframes scale {
   10% {

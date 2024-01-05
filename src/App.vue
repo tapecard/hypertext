@@ -2,7 +2,7 @@
   <h1>{{ header }}</h1>
 
   <h2 class="description">
-    This collection of css and javascript animated text effects developed as Vue.js components and formatted as a playable demonstration site. Able to be used in different ways, some can run continuously and some are intended to wait until a triggering event like a page scroll or click. Some require Javascript, and some are CSS only.
+    This collection of css and javascript animated text effects developed as Vue.js components is able to be used in different ways, some can run continuously and some are intended to wait until a triggering event like a page scroll or click. Some require Javascript, and some are CSS only.
   </h2>
 
   <div class="topframe">
@@ -107,7 +107,8 @@ button {
 }
 textarea {
   max-width: 1440px;
-  width: 87%;
+  max-width: 87%;
+  min-width: 87%;
   padding: 16px;
   line-height: 1;
   border-radius: 10px;
@@ -116,11 +117,9 @@ textarea {
 }
 textarea:focus {
   border: none;
-    overflow: auto;
-    outline: none;
-    -webkit-box-shadow: none;
-    -moz-box-shadow: none;
-    box-shadow: none;
+  overflow: auto;
+  outline: none;
+  box-shadow: none;
 }
 .description {
   border-top-right-radius: 12px;
