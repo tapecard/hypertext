@@ -140,7 +140,7 @@ textarea:focus {
   overflow: hidden;
   padding-top: 30px;
   color: currentColor;
-  font-size: 1.5rem;
+  font-size: 5vw;
 }
 .topframe-spacer {
   background-color: #d0e0f5;

@@ -10,21 +10,35 @@
 <script>
 export default {
   name: 'ransomStyle',
-  props: ['name', 'inputContent'],
+  props: ['name', 'inputContent', 'displayClass'],
   data() {
     return {
-      styles:'abcdefghijklmnopqrstuvwxyz'
+      ready: false,
+      styles:'abcdefghijklmnopqrstuvwxyz',
+      helperTagArr:[],
+      ransomRepeater: false
+    }
+  },
+  watch: { 
+    displayClass: function(resetValue) {
+      if (resetValue != 'ransom') {
+        this.resetButton();
+      }
     }
   },
   methods: {
     setClass: function(nuDisplayClass) {
       this.$emit('setDisplay', nuDisplayClass);
-      this.ransom(this.inputContent, this.styles);
+      this.ransomSetup(this.inputContent, this.styles);
     },
-    ransom: function(inputContent, styles) {
-    // creates HTML tag helper array: [index,tag,length]
-      let helperTagArr = [],
-          tmpTagArr = [],
+    resetButton: function() {
+      this.ready = false;
+      clearInterval(this.ransomRepeater);
+      this.ransomRepeater = false;
+    },
+  // creates HTML tag helper array: [index,tag,length]
+    ransomSetup: function(inputContent, styles) {
+      let tmpTagArr = [],
           tagContent = '';
       for (let i=0; i <= inputContent.length-1; i++) {
         if (inputContent[i] === '<') {
@@ -35,29 +49,30 @@ export default {
             tagContent += inputContent[i];
           } else {
             tmpTagArr.push(tagContent + '>', tagContent.length+1);
-            helperTagArr.push(tmpTagArr);
+            this.helperTagArr.push(tmpTagArr);
             tmpTagArr = [];
             tagContent = '';
           }
         }
       }
-    // recombines tags for output:
+      this.ransomRun();
+    },
+  // recombines tags for output:
+    ransom: function(inputContent, styles) {
       let inputValueArray = inputContent.split(''),
           outputArray = [],
           currentTag = 0;
       for (let i=0; i <= inputContent.length; i++) {
-        if (helperTagArr.length && helperTagArr[currentTag] != undefined &&  i === helperTagArr[currentTag][0]) {
-          updateStuff();
-          recursiveTagCheck();
-          function recursiveTagCheck() {
-              updateStuff();
-              recursiveTagCheck();
+        if (this.helperTagArr.length && this.helperTagArr[currentTag] != undefined &&  i === this.helperTagArr[currentTag][0]) {
+          updateStuff(this.helperTagArr);
+          recursiveTagCheck(this.helperTagArr);
+          function recursiveTagCheck(helperTagArr) {
             if (inputContent[i] === '<') {
               updateStuff(helperTagArr);
               recursiveTagCheck(helperTagArr);
             }
           }
-          function updateStuff() {
+          function updateStuff(helperTagArr) {
             outputArray.push(helperTagArr[currentTag][1]);
             i += helperTagArr[currentTag][2];
             currentTag++;
@@ -71,6 +86,21 @@ export default {
         }
       }
       this.$emit('setText', outputArray.toString().replace(/,/g, ''));
+    },
+    ransomRun: function() {
+      if (!this.ready && !this.ransomRepeater) {
+        this.ready = true;
+        this.ransom(this.inputContent, this.styles);
+      } else {
+        if (!this.ransomRepeater) {
+          this.ready = false;
+          this.ransomRepeater = setInterval(() => {
+            this.ransom(this.inputContent, this.styles);
+          },250);
+        } else {
+          this.resetButton();
+        }
+      }
     }
   }
 }
