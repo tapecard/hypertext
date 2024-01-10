@@ -22,11 +22,6 @@ export default {
 <style>
 .display.speed {
   text-align: center;
-  width: 100%;
-  font-size: 2rem;
-}
-.speed {
-  font-size: 2rem;
   overflow: visible;
   text-align: center;
   transform: skewX(-22deg);

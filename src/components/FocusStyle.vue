@@ -48,11 +48,6 @@ export default {
 <style>
 .display.focus {
   text-align: center;
-  width: 100%;
-  font-size: 2rem;
-}
-.focus {
-  text-align: center;
   color: rgba(0, 0, 0, 0);
   text-shadow: 0 0 30px rgba(0, 0, 0, .3);
   animation: focus 2.75s both;

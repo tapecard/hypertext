@@ -1,16 +1,15 @@
 <template>
-    <button 
-      :class="!ready ? '' : 'trigger-ready'" 
-      @click="setClass('decrypt')"
-      type="button"
-    >
-      {{ ready==false ? name : 'Trigger Event' }}
-    </button>
+  <button 
+    :class="!ready ? '' : 'trigger-ready'" 
+    @click="setClass('decrypt')"
+    type="button">
+    {{ !ready ? name : 'Trigger Event' }}
+  </button>
 </template>
 
 <script>
 export default {
-  name: 'SpeedStyle',
+  name: 'DecryptStyle',
   props: ['name', 'inputContent', 'displayClass'],
   data() {
     return {
@@ -112,6 +111,5 @@ export default {
 <style>
 .display.decrypt {
   text-align: left;
-  font-size: 2rem;
 }
 </style>

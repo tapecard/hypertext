@@ -1,8 +1,9 @@
 <template>
   <button 
+    :class="!ready ? '' : 'trigger-ready'" 
     @click="setClass('ransom')" 
     type="button">
-    {{ name + ' Note' }}
+    {{ !ready ? name + ' Note' : 'Trigger Event' }}
   </button>
 </template>
 
@@ -49,9 +50,11 @@ export default {
           updateStuff();
           recursiveTagCheck();
           function recursiveTagCheck() {
-            if (inputContent[i] === '<') {
               updateStuff();
               recursiveTagCheck();
+            if (inputContent[i] === '<') {
+              updateStuff(helperTagArr);
+              recursiveTagCheck(helperTagArr);
             }
           }
           function updateStuff() {
@@ -77,9 +80,6 @@ export default {
 .display.ransom {
   text-align: center;
   width: 100%;
-  font-size: 32px;
-}
-.ransom {
   line-height: 1;
   letter-spacing: 0;
   word-spacing: 0;
@@ -161,7 +161,7 @@ export default {
   line-height: 1;
   transform: rotate(1deg);
   padding: 0 3px .03em;
-  font-size: 1.4rem;
+  font-size: 1.4em;
 }
 .ransom .g {
   font-family: times, times new roman, serif;

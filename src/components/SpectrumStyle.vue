@@ -17,7 +17,7 @@ export default {
     }
   },
   watch: { 
-    displayClass: function(resetValue) { // watch it
+    displayClass: function(resetValue) {
       if (resetValue != 'spectrum') {
         this.resetButton();
       }
@@ -48,12 +48,7 @@ export default {
 <style>
 .display.spectrum {
   text-align: center;
-  width: 100%;
-  font-size: 2rem;
-}
-.spectrum {
-  text-align: center;
-  color: rgba(0, 0, 0, 1);
+  color: currentColor;
   animation: spectrum 1.5s normal;
 }
 @keyframes spectrum {
@@ -81,7 +76,7 @@ export default {
     0 0 0  rgba(255,0,0, .75);     /*red*/
   }
   100% {
-    color: rgba(0, 0, 0, 1);
+    color: currentColor;
   }
 }
 </style>

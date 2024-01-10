@@ -64,7 +64,7 @@
   max-width: 1280px;
   margin: 0 auto;
   font-weight: normal;
-  padding: 8px;
+  padding: 0;
   text-align: center;
 }
 body {
@@ -84,3 +84,150 @@ body {
   margin: 0;
   padding: 0;
 }
+H1 {
+  margin: 8px auto;
+  font-size: 1.75rem;
+  padding:0 8px 8px;
+}
+button {
+  font-size: 1rem;
+  margin: 5px;
+  min-width: 110px;
+}
+textarea {
+  max-width: 100%;
+  min-width: 100%;
+  width: 100%;
+  padding: 8px;
+  line-height: 1;
+  border-radius: none;
+  margin-top: 0;
+  border: none;
+}
+textarea:focus {
+  border: none;
+  overflow: auto;
+  outline: none;
+  box-shadow: none;
+}
+.description {
+  border-top-right-radius: 12px;
+  border-top-left-radius: 12px;
+  padding: 16px;
+  color: #000;
+  text-align: left;
+  display: inline-block;
+  box-sizing: border-box;
+  width: 94%;
+  font-weight: normal;
+  font-size: 1rem;
+  background-color: #d0e0f5;
+}
+.topframe {
+  font-family: Helvetica, Arial, sans-serif;
+  background-color: #fff;
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  border-radius: none;
+  margin: 0 auto;
+}
+.display {
+  background-color: #fefefe;
+  margin: 0 auto;
+  padding: 10px;
+  height: 200px;
+  overflow: hidden;
+  padding-top: 30px;
+  color: currentColor;
+  font-size: 1.5rem;
+}
+.topframe-spacer {
+  background-color: #d0e0f5;
+  width: 94%;
+  height: 8px;
+  position: relative;
+  display: block;
+  margin: 0 auto;
+}
+.trigger-btns {
+  background-color: #d0e0f5;
+  width: 94%;
+  text-align: center;
+  margin: 0 auto;
+  padding:16px 8px;
+}
+.suggestions {
+  margin: 0 auto;
+  padding: 0 8px 16px 8px;
+  width: 94%;
+  background-color: #d0e0f5;
+  border-bottom-left-radius: 16px;
+  border-bottom-right-radius: 16px;
+}
+.showspace {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  max-width: 100%;
+  position: relative;
+}
+.showspace-tile {
+  border-radius: 12px;
+  padding: 8px;
+  margin: 16px 8px;
+  width: calc(100% - 8px);
+  box-sizing: border-box;
+  display: inline-block;
+  text-align: left;
+  color: #000;
+  background-color: rgba(161, 138, 184, .5);
+}
+@media (min-width: 480px) {
+  #app {
+    padding: 8px;
+  }
+  H1 {
+    font-size: 2rem;
+    padding: 0 16px 16px;
+  }
+  textarea {
+    max-width: 1440px;
+    max-width: 87%;
+    min-width: 87%;
+    padding: 16px;
+    border-radius: 10px;
+  }
+  .description {
+    padding: 16px;
+    width: 87%;
+  }
+  .topframe {
+    border-radius: 12px;
+    width: 90%;
+  }
+  .display {
+    font-size: 2rem;
+  }
+  .suggestions {
+    padding: 0 16px 16px 16px;
+    width: 84%;
+  }
+  .topframe-spacer {
+    width: 84%;
+  }
+  .trigger-btns {
+    width: 84%;
+    padding: 8px;
+  }
+  .showspace {
+    width: 100%;
+    max-width: 1440px;
+  }
+  .showspace-tile {
+    padding: 16px;
+    width: 40%;
+    margin: 15px;
+  }
+}
+

@@ -22,11 +22,6 @@ export default {
 <style>
 .display.phase {
   text-align: center;
-  width: 100%;
-  font-size: 2rem;
-}
-.phase {
-  text-align: center;
   color: rgba(0, 0, 0, 1);
   animation: phase 6s infinite;
 }

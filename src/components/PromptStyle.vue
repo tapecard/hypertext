@@ -4,7 +4,7 @@
     @click="setClass('prompt-active')"
     type="button"
   >
-    {{ready==false ? name : 'Trigger Event'}}
+    {{ !ready ? name : 'Trigger Event' }}
   </button>
 </template>
 
@@ -107,7 +107,6 @@ export default {
 <style >
 .display.prompt-active {
   text-align: left;
-  font-size: 2rem;
   line-height: 1.2;
 }
 .prompt-active .prompt {

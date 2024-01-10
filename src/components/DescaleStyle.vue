@@ -48,32 +48,20 @@ export default {
 <style>
 .display.descale {
   text-align: center;
-  width: 100%;
-}
-.descale {
-  line-height: 1;
-  letter-spacing: 0;
-  word-spacing: 0;
-  text-align: center;
-  padding-top: 30px;
-  animation: scale .5s forwards;
+  animation: scale .75s forwards;
 }
 @keyframes scale {
   10% {
-    color: transparent;
-    font-size: 620px;
-    word-spacing: 0;
+    color: currentColor;
+    font-size: 40em;
     line-height: 0;
     word-spacing: 0;
-  }
-  11% {
-    color: #000;
   }
   50% {
   line-height: .3;
   }
   100% {
-    font-size: 16px;
+    font-size: 1em;
     letter-spacing: 1px;
     line-height: 1;
     word-spacing: 1px;
