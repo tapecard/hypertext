@@ -109,7 +109,9 @@ export default {
 </script>
 
 <style>
-.display.decrypt {
+.decrypt {
   text-align: left;
+  font-family: 'courier';
+  font-size: 1em;
 }
 </style>

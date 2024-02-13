@@ -142,6 +142,25 @@ textarea:focus {
   color: currentColor;
   font-size: 5vw;
 }
+.topframe__fontsize {
+  position: absolute;
+  z-index: 64;
+  font-size: .75rem;
+  right: -18px;
+  top: -26px;
+  border-radius: 10px;
+  padding: 3px 6px;
+  background-color: rgba(255, 255, 255, 0.5);
+  color: #777;
+}
+.topframe__fontsize:hover {
+  color: #2c3e50;
+}
+.topframe__fontsize span:hover {
+  text-decoration: underline;
+  cursor: pointer;
+  color: #000;
+}
 .topframe-spacer {
   background-color: #d0e0f5;
   width: 94%;

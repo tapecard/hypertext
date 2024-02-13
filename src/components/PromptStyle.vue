@@ -2,8 +2,7 @@
   <button 
     :class="!ready ? '' : 'trigger-ready'" 
     @click="setClass('prompt-active')"
-    type="button"
-  >
+    type="button">
     {{ !ready ? name : 'Trigger Event' }}
   </button>
 </template>
@@ -105,13 +104,13 @@ export default {
 </script>
 
 <style >
-.display.prompt-active {
+.prompt-active {
   text-align: left;
   line-height: 1.2;
 }
 .prompt-active .prompt {
   color: #dafcd7;
-  min-width: 14px;
+  min-width: .5em;
   display: inline-block;
   text-align: center;
   background-color: #11a603;
@@ -121,7 +120,7 @@ export default {
 }
 .ready-prompt {
   color: transparent;
-  min-width: 14px;
+  min-width: .5em;
   display: inline-block;
   text-align: center;
   background-color: #11a603;

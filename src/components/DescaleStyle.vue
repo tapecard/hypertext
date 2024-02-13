@@ -29,7 +29,7 @@ export default {
         this.resetEffect();
       } else {
         this.$emit('setDisplay', nuDisplayClass);
-        this.$emit('setText', this.inputContent);
+        this.$emit('setText', '<span>'+this.inputContent+'</span>');
         this.resetMe = true;
       }
     },
@@ -46,14 +46,14 @@ export default {
 </script>
 
 <style>
-.display.descale {
+.descale span {
   text-align: center;
   animation: scale .75s forwards;
+  color: currentColor;
 }
 @keyframes scale {
   10% {
-    color: currentColor;
-    font-size: 40em;
+    font-size: 30em;
     line-height: 0;
     word-spacing: 0;
   }
@@ -61,10 +61,10 @@ export default {
   line-height: .3;
   }
   100% {
-    font-size: 1em;
-    letter-spacing: 1px;
+    font-size: .875em;
+    letter-spacing: .01em;
     line-height: 1;
-    word-spacing: 1px;
+    word-spacing: .01em;
   }
 }
 </style>

@@ -6,12 +6,22 @@
   </h2>
 
   <div class="topframe">
-    <div class="display" 
+    <div class="display"
+      :style="{'font-size': fontSize + 'rem'}"  
+      id="stage"
       :class="displayClass"
       v-html="inputContentStorage">
     </div>
   </div>
-  <div class="topframe-spacer"></div>
+
+  <div class="topframe-spacer">
+    <div class="topframe__fontsize">
+      Font Size: 
+      <span @click="fontSize+=.25" aria-controls="stage">Larger</span> | 
+      <span @click="fontSize-=.25" aria-controls="stage">Smaller</span> | 
+      <span @click="fontSize=2" aria-controls="stage">Default</span>
+    </div> 
+  </div>
   <textarea 
     v-model="inputContent" 
     type="input" 
@@ -80,6 +90,7 @@ export default {
       effects,
       header: 'Welcome to the HyperText Party!',
       displayClass: '',
+      fontSize: 2,
       inputContent: 'Your Cool Text Content!',
       inputContentStorage: ''
     }

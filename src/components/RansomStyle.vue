@@ -107,7 +107,7 @@ export default {
 </script>
 
 <style>
-.display.ransom {
+.ransom {
   text-align: center;
   width: 100%;
   line-height: 1;
