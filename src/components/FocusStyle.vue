@@ -48,22 +48,22 @@ export default {
 <style>
 .display.focus {
   text-align: center;
-  color: rgba(0, 0, 0, 0);
-  text-shadow: 0 0 30px rgba(0, 0, 0, .3);
+  color: inherit;
+  filter: blur(2rem);
   animation: focus 2.75s both;
 }
 @keyframes focus {
   0% {
-    text-shadow: 0 0 40px rgba(0, 0, 0, .3);
+    filter: blur(1.75rem);
   }
   60% {
-    text-shadow: 0 0 0 rgba(0, 0, 0, 1);
+    filter: blur(0);
   }
   80% {
-    text-shadow: 0 0 5px rgba(0, 0, 0, .5);
+    filter: blur(.15rem);
   }
   100% {
-    text-shadow: 0 0 0 rgba(0, 0, 0, 1);
+    filter: blur(0);
   }
 }
 </style>
