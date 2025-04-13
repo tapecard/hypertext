@@ -55,10 +55,10 @@ export default {
   0% {
     color: rgba(0, 0, 0, 0);
     text-shadow: 
-    -20px 15px 0  rgba(138, 20, 255, 0), /*purple*/
-    30px 0 0  rgba(18, 209, 8, 0),       /*green*/
+    40px 15px 0  rgba(138, 20, 255, 0), /*purple*/
+    -60px -20px 0  rgba(18, 209, 8, 0),       /*green*/
     15px -20px 0 rgba(227, 142, 5, .1),  /*orange*/
-    0 -20px 0 rgba(9, 9, 222, 0),        /*blue*/
+    -60px 20px 0 rgba(9, 9, 222, 0),        /*blue*/
     0 20px 0  rgba(255,255,0, .2),       /*yellow*/
     -30px 0 0  rgba(227, 23, 23, 0);     /*red*/
   }

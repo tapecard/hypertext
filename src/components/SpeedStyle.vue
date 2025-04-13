@@ -24,6 +24,7 @@ export default {
   text-align: center;
   overflow: visible;
   animation: speeds 24ms infinite;
+  opacity: .9;
 }
 @keyframes speeds {
   0% {
