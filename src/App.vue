@@ -2,10 +2,10 @@
   <h1>{{ header }}</h1>
 
   <h2 class="description">
-    This collection of css and javascript animated text effects developed as Vue.js components is able to be used in different ways, some can run continuously and some are intended to wait until a triggering event like a page scroll or click. Some require Javascript, and some are CSS only.
+    This collection of css and javascript animated text effects developed as Vue.js components is able to be used in different ways. Some can run continuously and some are intended to wait until a triggering event like a page scroll or click. Some require Javascript, and some are CSS only.
   </h2>
 
-  <div class="topframe">
+  <div class="mainFrame">
     <div class="display"
       :style="{'font-size': fontSize + 'rem'}"  
       id="stage"
@@ -14,43 +14,48 @@
     </div>
   </div>
 
-  <div class="topframe-spacer">
-    <div class="topframe__fontsize">
+  <div class="mainFrame__content">
+    <div class="mainFrame__fontsize">
       Font Size: 
       <span @click="fontSize+=.25" aria-controls="stage">Larger</span> | 
       <span @click="fontSize-=.25" aria-controls="stage">Smaller</span> | 
       <span @click="fontSize=2" aria-controls="stage">Default</span>
     </div> 
-  </div>
-  <textarea 
-    v-model="inputContent" 
-    type="input" 
-    class="input">
-  </textarea>
 
-  <div class="trigger-btns">
+    <textarea 
+      v-model="inputContent" 
+      type="input" 
+      class="mainFrame__input">
+    </textarea>
+  
     <component 
       v-for="(elem, i) in effects" 
-      v-bind:key="i" 
+      :key="i" 
       :is="effects[i].name + 'Style'" 
       :name="effects[i].name" 
       :inputContent="inputContent" 
-      :displayClass="this.displayClass"
-      @setDisplay="this.setClass($event)" 
-      @setText="this.setText($event)" 
+      :displayClass="displayClass" 
+      @setDisplay="setClass($event)" 
+      @setText="setText($event)" 
     />
-  </div>
-  
-  <div class="suggestions">
-    Effects also accept inline HTML, try adding some formatting:
-    <button
-    @click="this.inputContent='Your <b>Cool</b><br>Text Content!'">Pre-formatted Text</button>
+
+    <div v-if="effectDescription" v-html="effectDescription" class="effect__description"></div>
+    
+    <div class="mainFrame__suggestions">
+      <span>
+        Effects also accept inline HTML, try adding some formatting:
+      </span>
+      <button
+      @click="inputContent='Your <b>Cool</b><br>Headline!'">Pre-formatted Text</button>
+    </div>
+
   </div>
 
   <div class="showspace">
-      <div class="showspace-tile" 
+      <div 
         v-for="(effect, i) in effects" 
-        v-bind:key="i" 
+        class="showspace__tile" 
+        :key="i" 
         v-html="effects[i].text">
       </div>
   </div>
@@ -91,13 +96,20 @@ export default {
       header: 'Welcome to the HyperText Party!',
       displayClass: '',
       fontSize: 2,
-      inputContent: 'Your Cool Text Content!',
-      inputContentStorage: ''
+      inputContent: 'Your Cool Headline!',
+      inputContentStorage: '',
+      effectDescription: 'Customize the text and click the buttons above to see the effects. Buttons provide feedback on triggering and resetting each effect.'
     }
   },
   methods: {
     setClass: function(nuClass) {
       this.displayClass = nuClass;
+      const iterator = effects.keys();
+      for (const key of iterator) {
+        if (effects[key].name.toLowerCase() == nuClass) {
+          this.effectDescription = effects[key].text;
+        }
+      }
     },
     setText: function(nuContent) {
       this.inputContentStorage = nuContent;
