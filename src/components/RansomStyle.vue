@@ -3,7 +3,7 @@
     :class="!ready ? '' : 'trigger-ready'" 
     @click="setClass('ransom')" 
     type="button">
-    {{ !ready ? name + ' Note' : 'Trigger Event' }}
+    {{ !ready ? name + ' Note' : 'Start' }}
   </button>
 </template>
 
@@ -38,19 +38,22 @@ export default {
     },
   // creates HTML tag helper array: [index,tag,length]
     ransomSetup: function(inputContent, styles) {
-      let tmpTagArr = [],
-          tagContent = '';
-      for (let i=0; i <= inputContent.length-1; i++) {
-        if (inputContent[i] === '<') {
-          tmpTagArr.push(i);
-        }
-        if (tmpTagArr.length) {
-          if (inputContent[i] !== '>') {
-            tagContent += inputContent[i];
-          } else {
-            tmpTagArr.push(tagContent + '>', tagContent.length+1);
-            this.helperTagArr.push(tmpTagArr);
-            tmpTagArr = [];
+      let tagStartIndex = null;
+      let tagContent = '';
+
+      for (let i = 0; i < inputContent.length; i++) {
+        const char = inputContent[i];
+
+        if (char === '<') {
+          tagStartIndex = i;
+          tagContent = '<';
+        } else if (tagStartIndex !== null) {
+          tagContent += char;
+
+          if (char === '>') {
+            const tagLength = tagContent.length;
+            this.helperTagArr.push([tagStartIndex, tagContent, tagLength]);
+            tagStartIndex = null;
             tagContent = '';
           }
         }
@@ -58,49 +61,50 @@ export default {
       this.ransomRun();
     },
   // recombines tags for output:
-    ransom: function(inputContent, styles) {
-      let inputValueArray = inputContent.split(''),
-          outputArray = [],
-          currentTag = 0;
-      for (let i=0; i <= inputContent.length; i++) {
-        if (this.helperTagArr.length && this.helperTagArr[currentTag] != undefined &&  i === this.helperTagArr[currentTag][0]) {
-          updateStuff(this.helperTagArr);
-          recursiveTagCheck(this.helperTagArr);
-          function recursiveTagCheck(helperTagArr) {
-            if (inputContent[i] === '<') {
-              updateStuff(helperTagArr);
-              recursiveTagCheck(helperTagArr);
-            }
-          }
-          function updateStuff(helperTagArr) {
-            outputArray.push(helperTagArr[currentTag][1]);
-            i += helperTagArr[currentTag][2];
-            currentTag++;
-          }
+    ransom(inputContent, styles) {
+      const inputArray = inputContent.split('');
+      const outputArray = [];
+      let tagIndex = 0;
+
+      for (let i = 0; i <= inputArray.length; i++) {
+        const currentTag = this.helperTagArr[tagIndex];
+
+        // Handle tags at the current index
+        if (currentTag && i === currentTag[0]) {
+          const [ , tagString, tagLength ] = currentTag;
+          outputArray.push(tagString);
+          i += tagLength - 1; // skip over tag characters
+          tagIndex++;
+          continue;
         }
-        if (inputValueArray[i] === ' ') {
-          outputArray.push('<span class="xx">' + inputValueArray[i] + '</span>');
-        } else if (inputValueArray[i] != undefined) {
-          let styleClass = styles[Math.floor(Math.random() * styles.length)];
-          outputArray.push('<span class="' + styleClass + '">' + inputValueArray[i] + '</span>');
+
+        const char = inputArray[i];
+        if (char === ' ') {
+          outputArray.push(`<span class="xx"> </span>`);
+        } else if (char !== undefined) {
+          const randomClass = styles[Math.floor(Math.random() * styles.length)];
+          outputArray.push(`<span class="${randomClass}">${char}</span>`);
         }
       }
-      this.$emit('setText', outputArray.toString().replace(/,/g, ''));
+
+      this.$emit('setText', outputArray.join(''));
     },
     ransomRun: function() {
       if (!this.ready && !this.ransomRepeater) {
         this.ready = true;
         this.ransom(this.inputContent, this.styles);
-      } else {
-        if (!this.ransomRepeater) {
-          this.ready = false;
-          this.ransomRepeater = setInterval(() => {
-            this.ransom(this.inputContent, this.styles);
-          },250);
-        } else {
-          this.resetButton();
-        }
+        return;
       }
+
+      if (this.ransomRepeater) {
+        this.resetButton();
+        return;
+      }
+
+      this.ready = false;
+      this.ransomRepeater = setInterval(() => {
+        this.ransom(this.inputContent, this.styles);
+      }, 250);
     }
   }
 }

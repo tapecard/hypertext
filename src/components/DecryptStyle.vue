@@ -33,24 +33,24 @@ export default {
       this.ready = false;
     },
     decrypt: function(inputContent) {
-      let inputValueArray = inputContent.split('');
-    // creates HTML tag helper array: [index,tag,length]
-      let displayArray = [],
-          helperTagArr = [],
-          tmpTagArr = [],
-          tagContent = '';
+      const inputValueArray = inputContent.split('');
+      const displayArray = [];
+      const helperTagArr = [];
+      let tagStartIndex = null;
+      let tagContent = '';
+
       for (let i=0; i <= inputValueArray.length-1; i++) {
-        let tagStart = i;
-        if (inputValueArray[i] == '<') {
-          tmpTagArr.push(tagStart);
-        }
-        if (tmpTagArr.length) {
-          if (inputValueArray[i] !== '>') {
-            tagContent += inputValueArray[i];
-          } else {
-            tmpTagArr.push(tagContent + '>', tagContent.length+1);
-            helperTagArr.push(tmpTagArr);
-            tmpTagArr = [];
+        const char = inputValueArray[i];
+        if (char === '<') {
+          tagStartIndex = i;
+          tagContent = '<';
+        } else if (tagStartIndex !== null) {
+          tagContent += char;
+
+          if (char === '>') {
+            const tagLength = tagContent.length;
+            helperTagArr.push([tagStartIndex, tagContent, tagLength]);
+            tagStartIndex = null;
             tagContent = '';
           }
         }
@@ -58,50 +58,62 @@ export default {
       }
 
     // uses tag array data to replace chars with tags: 
-      function fixtags(displayArray) {
-        let nuArray = [],
-            currentTag = 0;
-        for (let i=0; i < displayArray.length+1; i++) {
-          if (helperTagArr.length && helperTagArr[currentTag] !== undefined) {
-            if (i == helperTagArr[currentTag][0]) {
-              nuArray.push(...helperTagArr[currentTag][1].split(''));
-              i += helperTagArr[currentTag][2]-1;
-              currentTag++;
-            } else {
-              nuArray.push(displayArray[i]);
-            }
+      function fixTags(displayArray) {
+        const result = [];
+        let tagIndex = 0;
+
+        for (let i = 0; i <= displayArray.length; i++) {
+          const tag = helperTagArr[tagIndex];
+
+          if (tag && i === tag[0]) {
+            const [ , tagString, tagLength ] = tag;
+            result.push(...tagString.split(''));
+            i += tagLength - 1;
+            tagIndex++;
           } else {
-            nuArray.push(displayArray[i]);
+            result.push(displayArray[i]);
           }
         }
-        return nuArray.join('');
+        return result.join('');
       }
+
       if (this.ready == false) {
-        this.$emit('setText', fixtags(displayArray));
+        this.$emit('setText', fixTags(displayArray));
         this.ready = true;
         return;
       }
     // replaces randoms with originals one char at a time sends to fixtags to add tags back for display at end, switches each character 2x before moving on.
-      let ticker = -1,
-          resultArray = [],
-          ztagArr = [...helperTagArr],
-      timerObj = setInterval(() => {
-        ticker > displayArray.length*2 ? clearInterval(timerObj) : ticker++;
-        if (ticker % 2 == 0) {
-          if (ztagArr[0] !== undefined && ticker/2 == ztagArr[0][0]) {
-            resultArray.push(...ztagArr[0][1].split(''));
-            ticker += (ztagArr[0][2]*2)-2;
-            ztagArr.shift();
+      let ticker = -1;
+      let resultArray = [];
+      let remainingTags = [...helperTagArr];
+
+      const timer = setInterval(() => {
+        if (ticker > displayArray.length * 2) {
+          clearInterval(timer);
+          return;
+        }
+        ticker++;
+        if (ticker % 2 === 0) {
+          const index = ticker / 2;
+
+          if (remainingTags[0] && index === remainingTags[0][0]) {
+            const [ , tagContent, tagLength ] = remainingTags[0];
+            resultArray.push(...tagContent.split(''));
+            // skip tag length (converted to ticker units)
+            ticker += (tagLength * 2) - 2; 
+            remainingTags.shift();
           } else {
-            resultArray.push(inputValueArray[ticker/2]);
+            resultArray.push(inputValueArray[index]);
           }
         }
-        let tempArray = [];
-        for (let i=ticker/2; i < displayArray.length-1; i++) {
-          tempArray.push(this.chars[Math.floor(Math.random() * this.chars.length)]);
-        }
-        this.$emit('setText', fixtags([...resultArray, ...tempArray]));
-      }, 35);
+
+        const remainingRandom = Array.from({ length: displayArray.length - Math.floor(ticker / 2) - 1 }, () => {
+          return this.chars[Math.floor(Math.random() * this.chars.length)];
+        });
+
+        this.$emit('setText', fixTags([...resultArray, ...remainingRandom]));
+      }, 40);
+
       this.ready = false;
     }
   }
