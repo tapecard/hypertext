@@ -89,8 +89,13 @@ body {
 }
 H1 {
   margin: 8px auto;
-  font-size: 1.75rem;
+  font-size: clamp(.75rem, 5vw, 3.5rem);
   padding:0 8px 8px;
+  background: -webkit-linear-gradient(rgba(0,0,0,.75) 25%, #0ff 42%, #000 53%);
+  background-clip: border-box;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 1px -1px 0 rgba(0, 0, 0, .3), 0 -1px 1px rgba(255, 255, 255, .3);
 }
 button {
   font-size: 1rem;
@@ -224,7 +229,6 @@ button {
     padding: 8px;
   }
   H1 {
-    font-size: 2rem;
     padding: 0 16px 16px;
   }
   .description {

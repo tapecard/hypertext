@@ -9,7 +9,7 @@ const effects = [
   },
   {
     name:'Descale', 
-    text:'Descale is a "run once" effect. It Creates a zoom-out effect. The text starts jumbled and enlarged, then when shrinking down it untangles itself to reveal the content at proper size. CSS Animation only.'
+    text:'Descale is a "run once" effect. It Creates a zoom-out effect. The text starts jumbled and enlarged, then shrinks down, untangling itself to reveal the content at proper size. CSS Animation only.'
   },
   {
     name:'Spectrum', 
@@ -17,7 +17,7 @@ const effects = [
   },
   {
     name:'Speed', 
-    text:'Speed is a continuously running effect Using classic speed signifiers used in illustration to denote the look of something traveling at high speed. CSS Animation only.'
+    text:'Speed is a continuously running effect Using classic speed signifiers used in illustration to denote the look of something traveling at high speed. CSS only.'
   },
   {
     name:'Phase', 
@@ -29,7 +29,7 @@ const effects = [
   },
   {
     name:'Ransom', 
-    text:'Ransom simulates the classic ransom note look of cut and pasted text from print sources. The effect is randomized. It can be used once for a static look or it can continually randomize the styles. Requires Javascript.'
+    text:'Ransom simulates the classic ransom note look of cut and pasted text from print sources. The effect is randomized. It can be used once for a static look or it can continually randomize the styles. Looks best with less text. Requires Javascript.'
   }
 ];
 export default effects;
